@@ -1,5 +1,7 @@
 import pygame
 
+from equation import Equation
+
 
 pygame.init()
 
@@ -13,6 +15,8 @@ running = True
 squareSize = 50
 offsetX = 50
 offsetY = 50
+
+myEquation = Equation((0, 0))
 
 while running:
     for event in pygame.event.get():
@@ -38,6 +42,8 @@ while running:
                 squareColor = (255, 0, 255)
 
             pygame.draw.rect(screen, squareColor, (offsetX + squareSize * i, offsetY + squareSize * j, squareSize, squareSize))
+
+            myEquation.draw(screen, (offsetX, offsetY), squareSize)
 
     ##################################################################
     # Flip the display
