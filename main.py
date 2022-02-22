@@ -29,6 +29,10 @@ while running:
             elif event.key == pygame.K_d:
                 print("pressed D")
 
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            pos = pygame.mouse.get_pos()
+            
+
         
     # Fill the background with white
     screen.fill((255, 255, 255))
@@ -42,6 +46,10 @@ while running:
                 squareColor = (255, 0, 255)
 
             pygame.draw.rect(screen, squareColor, (offsetX + squareSize * i, offsetY + squareSize * j, squareSize, squareSize))
+
+
+            
+
 
             myEquation.draw(screen, (offsetX, offsetY), squareSize)
 
