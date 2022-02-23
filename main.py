@@ -1,6 +1,7 @@
 import pygame
 
 from equation import Equation
+from slot import Slot
 
 
 pygame.init()
@@ -16,7 +17,23 @@ squareSize = 50
 offsetX = 50
 offsetY = 50
 
-myEquation = Equation((0, 0))
+myEquation = Equation((3, 3))
+
+boardSlots = []
+
+
+for i in range(8):
+    rowSlots = []
+    for j in range(8):
+        colorIndex = (i + j) % 2
+        squareColor = (0, 0, 0)
+
+        if colorIndex != 0:
+            squareColor = (255, 0, 255)
+
+        rowSlots.append(Slot((i, j), squareColor))
+    boardSlots.append(rowSlots)
+
 
 while running:
     for event in pygame.event.get():
@@ -31,27 +48,25 @@ while running:
 
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             pos = pygame.mouse.get_pos()
-            
 
-        
+            if myEquation.get_rect(squareSize).collidepoint(pos):
+                myEquation.is_selected = True
+
     # Fill the background with white
     screen.fill((255, 255, 255))
 
-    for i in range(8):
-        for j in range(8):
-            colorIndex = (i + j) % 2
-            squareColor = (0, 0, 0)
+    for i in range(len(boardSlots)):
+        for j in range(len(boardSlots[0])):
+            # colorIndex = (i + j) % 2
+            # squareColor = (0, 0, 0)
 
-            if colorIndex != 0:
-                squareColor = (255, 0, 255)
+            # if colorIndex != 0:
+            #     squareColor = (255, 0, 255)
 
-            pygame.draw.rect(screen, squareColor, (offsetX + squareSize * i, offsetY + squareSize * j, squareSize, squareSize))
+            # pygame.draw.rect(screen, squareColor, (offsetX + squareSize * i, offsetY + squareSize * j, squareSize, squareSize))
+            boardSlots[i][j].draw(screen, (offsetX, offsetY), squareSize)
 
-
-            
-
-
-            myEquation.draw(screen, (offsetX, offsetY), squareSize)
+    myEquation.draw(screen, (offsetX, offsetY), squareSize)
 
     ##################################################################
     # Flip the display
