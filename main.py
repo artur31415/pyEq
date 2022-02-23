@@ -57,13 +57,6 @@ while running:
 
     for i in range(len(boardSlots)):
         for j in range(len(boardSlots[0])):
-            # colorIndex = (i + j) % 2
-            # squareColor = (0, 0, 0)
-
-            # if colorIndex != 0:
-            #     squareColor = (255, 0, 255)
-
-            # pygame.draw.rect(screen, squareColor, (offsetX + squareSize * i, offsetY + squareSize * j, squareSize, squareSize))
             boardSlots[i][j].draw(screen, (offsetX, offsetY), squareSize)
 
     myEquation.draw(screen, (offsetX, offsetY), squareSize)
