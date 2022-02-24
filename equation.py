@@ -15,4 +15,9 @@ class Equation:
         return (self.grid_position[0] * resolution, self.grid_position[1] * resolution)
 
     def get_rect(self, resolution):
-        return pygame.Rect(self.grid_to_cartesian(resolution), (resolution / 3, resolution / 3))
+        return pygame.Rect(self.grid_to_cartesian(resolution), (resolution, resolution))
+
+    def get_rect_with_pos(self, resolution, offset_position):
+        new_pos = self.grid_to_cartesian(resolution)
+        new_pos = (new_pos[0] + offset_position[0], new_pos[1] + offset_position[1])
+        return pygame.Rect(new_pos, (resolution, resolution))

@@ -16,6 +16,7 @@ running = True
 squareSize = 50
 offsetX = 50
 offsetY = 50
+offset_position = (offsetX, offsetY)
 
 myEquation = Equation((3, 3))
 
@@ -49,8 +50,22 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             pos = pygame.mouse.get_pos()
 
-            if myEquation.get_rect(squareSize).collidepoint(pos):
+            if myEquation.get_rect_with_pos(squareSize, offset_position).collidepoint(pos):
                 myEquation.is_selected = True
+                print("myEquation selected!")
+            else:
+                slot_grid_pos = None
+                for i in range(len(boardSlots)):
+                    for j in range(len(boardSlots[0])):
+                        if boardSlots[i][j].get_rect_with_pos(squareSize, offset_position).collidepoint(pos):
+                            slot_grid_pos = (i, j)
+                            print("grid (", str(i), ", ", str(j), ") selected!")
+                            break
+                    if slot_grid_pos != None:
+                        break
+                if slot_grid_pos != None and myEquation.is_selected:
+                    myEquation.grid_position = slot_grid_pos
+                myEquation.is_selected = False
 
     # Fill the background with white
     screen.fill((255, 255, 255))
