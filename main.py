@@ -64,7 +64,10 @@ while running:
                     if slot_grid_pos != None:
                         break
                 if slot_grid_pos != None and myEquation.is_selected:
-                    myEquation.grid_position = slot_grid_pos
+                    if myEquation.can_move_to(slot_grid_pos):
+                        myEquation.grid_position = slot_grid_pos
+                    else:
+                        print("Cannot move to ", str(slot_grid_pos))
                 myEquation.is_selected = False
 
     # Fill the background with white
@@ -75,6 +78,9 @@ while running:
             boardSlots[i][j].draw(screen, (offsetX, offsetY), squareSize)
 
     myEquation.draw(screen, (offsetX, offsetY), squareSize)
+
+    if myEquation.is_selected:
+        myEquation.draw_walk_pattern(screen, (offsetX, offsetY), squareSize)
 
     ##################################################################
     # Flip the display
